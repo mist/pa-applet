@@ -8,6 +8,8 @@ pa_applet_SOURCES = \
     main.c \
     notifications.h \
     notifications.c \
+    popsound.h \
+    popsound.c \
     popup_menu.c \
     popup_menu.h \
     pulse_glue.c \
@@ -25,6 +27,7 @@ pa_applet_CPPFLAGS = \
     $(LIBPULSE_CFLAGS) \
     $(LIBPULSE_GLIB_CFLAGS) \
     $(LIBNOTIFY_CFLAGS) \
+    $(LIBCANBERRA_CFLAGS) \
     $(XLIB_CFLAGS)
 
 pa_applet_LDADD = \
@@ -33,4 +36,5 @@ pa_applet_LDADD = \
     $(LIBPULSE_LIBS) \
     $(LIBPULSE_GLIB_LIBS) \
     $(LIBNOTIFY_LIBS) \
+    $(LIBCANBERRA_LIBS) \
     $(XLIB_LIBS)
