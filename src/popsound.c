@@ -26,9 +26,9 @@ void popsound_play(void)
     if ( (! as->muted) && (cacontext != NULL) ) {
         ca_context_play (cacontext, 1,
             CA_PROP_EVENT_ID, "audio-volume-change",
-    	    CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
+            CA_PROP_EVENT_DESCRIPTION, "volume changed through key press",
             CA_PROP_CANBERRA_CACHE_CONTROL, "permanent",
-    	    NULL);
+            NULL);
     }
 }
 
