@@ -17,7 +17,18 @@ PKG_CHECK_MODULES([LIBPULSE], [libpulse])
 PKG_CHECK_MODULES([LIBPULSE_GLIB], [libpulse-mainloop-glib])
 PKG_CHECK_MODULES([LIBNOTIFY], [libnotify])
 PKG_CHECK_MODULES([XLIB], [x11])
-PKG_CHECK_MODULES([LIBCANBERRA], [libcanberra])
+
+# check for canberra by default
+AC_ARG_WITH([canberra], AS_HELP_STRING([--without-canberra], [Build without canberra library (pop sound on volume change) (default: test)]))
+AS_IF([test "x$with_canberra" != "xno"], [
+    PKG_CHECK_MODULES([LIBCANBERRA], [libcanberra], [have_canberra=yes], [have_canberra=no])
+])
+AS_IF([test "x$have_canberra" = "xyes"],
+      [AC_DEFINE([HAVE_CANBERRA], [1], [Use Canberra])],
+      [AS_IF([test "x$with_canberra" = "xyes"],
+             [AC_MSG_ERROR([canberra requested but not found])
+      ])
+])
 
 AC_CONFIG_FILES([Makefile man/Makefile src/Makefile])
 AC_OUTPUT

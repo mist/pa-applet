@@ -15,9 +15,13 @@
 #include "audio_status.h"
 #include "key_grabber.h"
 #include "notifications.h"
-#include "popsound.h"
 #include "pulse_glue.h"
 #include "tray_icon.h"
+
+#include "config.h"
+#ifdef HAVE_CANBERRA
+#include "popsound.h"
+#endif
 
 #define KEY_STEP_SIZE 3.0
 
@@ -26,7 +30,9 @@ static void volume_raise_key_pressed(void)
     audio_status_raise_volume();
     pulse_glue_sync_volume();
     notifications_flash();
+#ifdef HAVE_CANBERRA
     popsound_play();
+#endif
 }
 
 static void volume_lower_key_pressed(void)
@@ -34,7 +40,9 @@ static void volume_lower_key_pressed(void)
     audio_status_lower_volume();
     pulse_glue_sync_volume();
     notifications_flash();
+#ifdef HAVE_CANBERRA
     popsound_play();
+#endif
 }
 
 static void volume_mute_key_pressed(void)
@@ -42,7 +50,9 @@ static void volume_mute_key_pressed(void)
     audio_status_toggle_muted();
     pulse_glue_sync_muted();
     notifications_flash();
+#ifdef HAVE_CANBERRA
     popsound_play();
+#endif
 }
 
 static void print_usage(FILE *out)
@@ -97,7 +107,9 @@ int main(int argc, char **argv)
     if (notifications_enabled)
         notifications_init();
 
+#ifdef HAVE_CANBERRA
     popsound_init();
+#endif
 
     // Grab the keys if we're configured to grab them
     if (key_grabbing_enabled) {
@@ -118,7 +130,9 @@ int main(int argc, char **argv)
         key_grabber_ungrab_keys();
     if (notifications_enabled)
         notifications_destroy();
+#ifdef HAVE_CANBERRA
     popsound_destroy();
+#endif
     destroy_tray_icon();
     pulse_glue_destroy();
     audio_status_destroy();
