@@ -19,6 +19,7 @@ pa_applet_SOURCES = \
 
 pa_applet_CPPFLAGS = \
     -std=c99 -D_GNU_SOURCE -Wall -Werror \
+    -Wno-error=deprecated-declarations \
     $(GLIB_CFLAGS) \
     $(GTK3_CFLAGS) \
     $(LIBPULSE_CFLAGS) \
